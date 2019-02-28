@@ -55,10 +55,25 @@ class brute_bot:
                         print(f'Password is >> {old} ')
                         break
 
+banner = """\n\t
+
+   _____            _       _  _____                _    
+  / ____|          (_)     | |/ ____|              | |   
+ | (___   ___   ___ _  __ _| | |     _ __ __ _  ___| | __
+  \___ \ / _ \ / __| |/ _` | | |    | '__/ _` |/ __| |/ /
+  ____) | (_) | (__| | (_| | | |____| | | (_| | (__|   < 
+ |_____/ \___/ \___|_|\__,_|_|\_____|_|  \__,_|\___|_|\_\\
+                                                         
+            AUTHOR -- crypt0sploit ( Adrian )
+            INSTAGRAM -- __adyadrian_aa
+
+"""
+
 def main_menu():
 
     if service == "facebook":
         site = "https://www.facebook.com"
+        print(banner)
         print("Waking up BOT...")
         efield = 'email'
         pfield = 'pass'
@@ -71,6 +86,7 @@ def main_menu():
     
     elif service == "instagram":
         site = "https://www.instagram.com/accounts/login/?source=auth_switcher"
+        print(banner)
         print("Waking up BOT...")
         efield = 'username'
         pfield = 'password'
