@@ -1,7 +1,7 @@
 """
 BRUTEFORCE BOT FOR ANY SOCIAL-MEDIA
 @AUTHOR crypt0sploit
-@DATE 25 Feb 2019
+@DATE 1 Mar 2019
 """
 
 from selenium import webdriver
