@@ -1,19 +1,15 @@
 """
-BRUTEFORCE BOT FOR ANY SOCIAL-MEDIA
-@AUTHOR crypt0sploit
-@DATE 1 Mar 2019
+Facebook And Instagram Bruteforcer
+@Author crypt0sploit
+@Date 1 Mar 2019
 """
 
 from selenium import webdriver
-from selenium.webdriver.common import keys
-from selenium.common.exceptions import *
+from selenium.common.exceptions import NoSuchElementException
 from tbselenium.tbdriver import TorBrowserDriver
 import sys
-from os.path import *
 import time
 import pyautogui
-from string import *
-from random import *
 
 script, service, password1 = sys.argv
 
