@@ -34,5 +34,10 @@ Windows:    python SocialCrack.py facebook C:\path\to\your\wordlist.txt
 Linux:      python3 SocialCrack.py instagram /path/to/your/wordlist.txt
 Windows:    python SocialCrack.py instagram C:\path\to\your\wordlist.txt
 
+3 - For Twitter:
+
+Linux:      python3 SocialCrack.py twitter /path/to/your/wordlist.txt
+Windows:    python SocialCrack.py twitter C:\path\to\your\wordlist.txt
+
 !!!! PYTHON3 ONLY !!!!
 =====================================================================================#
