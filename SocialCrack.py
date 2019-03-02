@@ -95,8 +95,8 @@ def main_menu():
         site = "https://twitter.com/login/"
         print(banner)
         print("Waking up BOT...")
-        efield = 'session[username_or_email]'
-        pfield = 'session[password]'
+        efield = 'username_or_email'
+        pfield = 'password'
         time.sleep(2)
         email1 = str(input("\nThe Username/Email of the Target >> "))
         target = open(sys.argv[2])
@@ -114,13 +114,9 @@ if __name__ == "__main__":
     except IndexError:
         print(f"""
         {banner}
-        \n===============================================================================
         \nWelcome to the SocialCrack help menu:
         Usage:
             Facebook:     python3 SocialCrack.py facebook /path/to/your/wordlist.txt
-
             Instagram:    python3 SocialCrack.py instagram /path/to/your/wordlist.txt
-              
             Twitter:      python3 SocialCrack.py twitter /path/to/your/wordlist.txt
-        \n===============================================================================
         """)
