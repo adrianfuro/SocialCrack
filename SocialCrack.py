@@ -191,5 +191,6 @@ if __name__ == "__main__":
             Facebook:     python3 SocialCrack.py facebook /path/to/your/wordlist.txt
             Instagram:    python3 SocialCrack.py instagram /path/to/your/wordlist.txt
             Twitter:      python3 SocialCrack.py twitter /path/to/your/wordlist.txt
-            PayPal:       python3 So
+            PayPal:       python3 SocialCrack.py paypal /path/to/your/wordlist.txt (UNSTABLE)
+            Pinterest:    python3 SocialCrack.py pinterest /path/to/your/wordlist.txt
         """)
