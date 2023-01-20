@@ -9,7 +9,6 @@ from selenium.common.exceptions import NoSuchElementException
 from tbselenium.tbdriver import TorBrowserDriver
 import sys
 import time
-import pyautogui
 
 class brute_bot(object):
 
